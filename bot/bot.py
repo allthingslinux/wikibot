@@ -11,7 +11,7 @@ wiki = MediaWiki(url='https://atl.wiki/api.php')
 wiki.login('WikiBot', os.getenv('BOT_PASSWORD'))
 
 # Fetch all page titles
-titles = wiki.allpages()
+titles = wiki.allpages(results=10000)
 
 # Initialize a list to hold the formatted page data
 all_pages = []
