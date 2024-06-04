@@ -142,7 +142,8 @@ def edit_wikipedia_page(username, password, page_to_edit, new_content):
         "title": page_to_edit,
         "token": CSRF_TOKEN,
         "format": "json",
-        "text": new_content
+        "text": new_content,
+        "summary": "WikiBot: update directory"
     }
     
     R = S.post(URL, data=PARAMS_3)
