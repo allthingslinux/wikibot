@@ -1,6 +1,7 @@
 from mediawiki import MediaWiki
 from dotenv import load_dotenv
 import os
+import mediawiki
 import urllib3
 import json
 import requests  # Import requests for session management
@@ -19,11 +20,21 @@ all_pages = []
 # Iterate over each title
 for title in titles:
     # Fetch the page object for each title
-    page = wiki.page(title, auto_suggest=False)
+    try:
+        page = wiki.page(title, auto_suggest=False, redirect=False)
+    except mediawiki.exceptions.RedirectError:
+        print(f'Skipping {title} because it is a redirect')
+        continue
     
     # Now you can safely access the 'title' and 'categories' properties
     categories = page.categories
-    
+
+    # if the page has the category "Bot: Ignore" then skip it
+    if 'Bot: Ignore' in categories:
+        print(f'Skipping {title} because it has the category "Bot: Ignore"')
+        continue
+
+    print(f'Fetching {title} with categories {categories}')
     # Append the formatted data to the list
     all_pages.append([title, categories])
 
