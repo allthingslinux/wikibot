@@ -19,7 +19,7 @@ all_pages = []
 # Iterate over each title
 for title in titles:
     # Fetch the page object for each title
-    page = wiki.page(title)
+    page = wiki.page(title, auto_suggest=False)
     
     # Now you can safely access the 'title' and 'categories' properties
     categories = page.categories
@@ -76,7 +76,7 @@ print(category_pages)
 
 output = ''
 for category in category_pages:
-    output += f'\n=== {category[0]} ===\n'
+    output += f'\n== {category[0]} ==\n'
     for page in category[1]:
         output += f'* [[{page}]]\n'
 
